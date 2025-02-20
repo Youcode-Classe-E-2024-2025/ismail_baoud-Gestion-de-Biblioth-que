@@ -6,8 +6,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 
+use Illuminate\Support\Facades\Storage;
 
 /**
  *
@@ -28,56 +30,67 @@ class authController extends Controller{
         echo view('auth.signin');
     }
 
-
-    public function create(Request $request){
-
-    }
-
-    public function store(Request $request){
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'firsName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'nullable|string|max:20',
+            'password' => 'required|min:6',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation stricte de l'image
         ]);
 
-
-        $firstName = $request->firsName;
-        $lastName = $request->lastName;
-        $email = $request->email;
-        $phone = $request->phone;
-        $image = $request->image;
-
-        User::create([
-            'firsName' => $request->firstname,
-            'lastName' => $lastName,
-            'email' => $email,
-            'phone' => $phone,
-            'image' => $image,
-            'password' => Hash::make($firstName),
-
-        ]);
-        return redirect()->route('signin');
-    }
-
-
-    public function login_validate(Request $request){
-
-        $email = $request->email;
-        $password = $request->password;
-
-        $data = ['email' => $email, 'password' => $password];
-
-
-
-        dd($data);
-        if(1){
-            dd('yes');
-            $request->session()->regenerate();
-            return redirect()->route('home');
-        }else{
-            return back()->withErrors(['email or password incorrect'])->withInput(['email']);
+        // Vérifier et stocker l'image
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('profile_images', 'public');
+        } else {
+            $imagePath = null;
         }
+
+        // Créer l'utilisateur
+        User::create([
+            'firsName' => $validatedData['firsName'], // Correction du champ
+            'lastName' => $validatedData['lastName'],
+            'email' => $validatedData['email'],
+            'phone' => $validatedData['phone'] ?? null,
+            'password' => Hash::make($validatedData['password']),
+            'role' => 'user',
+            'image' => $imagePath, // Enregistrer le chemin de l'image
+        ]);
+
+        return redirect()->route('signin')->with('success', 'Account created successfully');
     }
+
+
+
+    public function loginStore(Request $request){
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            $user = Auth::user();
+            $request->session()->put('user', $user);
+            $request->session()->put('role', $user->role);
+            return redirect()->route('home')->with('success', 'Login successful');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
+
+
+
+    public function logout(){
+            Session::flush(); // Supprime toutes les sessions
+            auth()->logout(); // Déconnecte l'utilisateur si tu utilises Laravel Auth
+            return redirect('/signin');
+    }
+
 
 }
