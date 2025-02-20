@@ -21,10 +21,10 @@
 
                         </div>
                         @if(session()->has('role') && session('role') == 'admin')
-                            <a href="/updatebook/{{$book->id}}" type="button" class="bg-yellow-200 font-semibold hover:bg-yellow-800 text-black text-sm px-2 py-2 w-full">Update Book</a>
-                            <a href="/adminDashboard/delete/{{ $book->id }}" class="bg-red-200 font-semibold hover:bg-red-800 text-black text-sm px-2 py-2 w-full">Delete Book</a>
+                            <a href="/updatebook/{{$book->id}}" type="button" class="bg-yellow-200 text-center font-semibold hover:bg-yellow-800 text-black text-sm px-2 py-2 w-full">Update Book</a>
+                            <a href="/adminDashboard/delete/{{ $book->id }}" class="bg-red-200 text-center font-semibold hover:bg-red-800 text-black text-sm px-2 py-2 w-full">Delete Book</a>
                         @else
-                            <button type="button" class="bg-gray-700 font-semibold hover:bg-gray-800 text-white text-sm px-2 py-2 w-full">Reserve book</button>
+                            <a href="/reservation/{{$book->id}}" type="button" class="bg-gray-700 text-center font-semibold hover:bg-gray-800 text-white text-sm px-2 py-2 w-full">Reserve book</a>
                         @endif
 
 

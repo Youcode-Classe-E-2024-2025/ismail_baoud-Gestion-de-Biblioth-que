@@ -6,6 +6,7 @@ use App\Http\Controllers\bookController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\reservationController;
 
 Route::get('/', [dashboardController::class , 'index']);
 Route::get('/signin', [authController::class , 'signin'])
@@ -21,6 +22,7 @@ Route::post('/login/validate', [authController::class , 'loginStore'])
     ->name('login.validate');
 Route::get('/logout', [authController::class , 'logout'])
     ->name('logout');
+
 
 
 Route::get('/userDashboard', [dashboardController::class , 'userDashboard'])
@@ -47,3 +49,5 @@ Route::post('/updateData/{id}', [bookController::class , 'storeUpdate']);
 Route::get('/deleteUser/{id}', [UserController::class , 'deleteUser']);
 
 Route::post('/updateUser/{id}', [UserController::class , 'editUser']);
+
+Route::get('/reservation/{id}', [reservationController::class , 'store']);
