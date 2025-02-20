@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('lastName');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('role');
             $table->string('phone');
             $table->string('image')->nullable();
             $table->timestamps();
@@ -32,6 +33,7 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
+            $table->string('role')->default('user');
             $table->text('user_agent')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
