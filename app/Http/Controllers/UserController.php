@@ -29,10 +29,10 @@ class UserController extends Controller
     public function editUser(Request $request , $id){
 
         $request = $request->validate([
-            'firsName' => 'required',
-            'lastName' => 'required',
-            'email' => 'required',
-            'phone' => 'required'
+            'firsName' => 'required|min:3',
+            'lastName' => 'required|min:3',
+            'email' => 'required|email',
+            'phone' => 'required|min:8',
         ]);
         $user = User::find($id);
         $user->update($request);

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\book;
 use App\Models\Reservation;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -14,11 +14,14 @@ class reservationController extends Controller
 
 
     public function index(){
-        $user = User::all();
-        dd($user);
+        $reservations = DB::TABLE('reservations')
+            ->join('users', 'users.id', '=', 'reservations.user_id')
+            ->join('books', 'books.id', '=', 'reservations.book_id')
+            ->select('reservations.*', 'reservations.created_at as created_reserv', 'users.*', 'books.*')
+            ->get();
 
-        $books = $user->reservedBooks;
-        echo view('front.dashboard')->with('books', $books);
+        echo view('back.emprunts')->with('reservations', $reservations);
+
     }
     /**
      * @param $id
@@ -28,6 +31,7 @@ class reservationController extends Controller
     {
         $user_id = session('id');
         $book_id = $id;
+        $status = 'reserved';
 
         // Vérifier si la réservation existe déjà
         $exists = Reservation::where('user_id', $user_id)
@@ -40,16 +44,27 @@ class reservationController extends Controller
             ];
             return back()->withErrors($error);
         }
-        Reservation::create([
-            'user_id' => $user_id,
-            'book_id' => $id,
-        ]);
-        return redirect()->route('home')->with('success', 'Reservation booked');
+        try {
+            Rrservation::create([
+                'user_id' => $user_id,
+                'book_id' => $id
+            ]);
+            $book = book::find($book_id);
+            $book->status = $status;
+            $book->save();
+            return redirect()->route('home')->with('success', 'Reservation booked');
+        }catch(\Exception $e){
+            return redirect()->route('home')->with('error', 'You have already reserved one book. You can only reserve one.');
+        }
+
     }
 
     public function delete($id){
         $reservation = Reservation::where('book_id', $id)->first();
         $reservation->delete();
+        $book = book::find($id);
+        $book->status = null;
+        $book->save();
         return redirect()->route('userDashboard')->with('success', 'Reservation deleted');
     }
 
