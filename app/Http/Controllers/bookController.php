@@ -10,11 +10,19 @@ use Illuminate\Http\Request;
  */
 class bookController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|object
+     */
     public function createbook(Request $request){
         return view('back.create');
     }
 
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function storebook(Request $request)
     {
         $validate = $request->validate([
@@ -48,6 +56,10 @@ class bookController extends Controller
     }
 
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deletebook($id){
 
         $book = book::find($id);
@@ -57,11 +69,22 @@ class bookController extends Controller
         return back()->with('success', 'Post deleted successfully');;
 
     }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|object
+     */
     public function updateBook($id){
         $book = book::find($id);
 
         return view('back.update')->with('book', $book);
     }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function storeUpdate(Request $request, $id){
 
         $validate = $request->validate([

@@ -16,7 +16,7 @@
                       <div class="bg-gray-100 p-2 overflow-hidden cursor-pointer">
                           <div class="bg-white flex flex-col h-full">
                               <div class="w-full">
-                                  <img src="{{ asset('images/img1.jpg')  }}" alt="book">
+                                  <img class="w-full h-full" src="{{ asset('storage/' . $book->image)  }}" alt="book">
                               </div>
 
                               <div class="p-4 text-center flex-1">
@@ -26,7 +26,7 @@
                                   <h4 class="text-sm sm:text-base font-bold text-gray-800"> ${{ $book->price }}</h4>
 
                               </div>
-                              <button type="button" class="bg-gray-700 font-semibold hover:bg-gray-800 text-white text-sm px-2 py-2 w-full">Add to Cart</button>
+                              <a href="/deleteReservation/{{ $book->id }}" type="button" class="bg-gray-700 text-center font-semibold hover:bg-gray-800 text-white text-sm px-2 py-2 w-full">Inreserved</a>
                           </div>
                       </div>
                   @endforeach

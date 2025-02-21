@@ -22,10 +22,18 @@ class dashboardController extends Controller
 
     }
 
+    /**
+     * @return void
+     */
     public function userDashboard(){
-        $books = book::all();
+        $user = User::find(session('id'));
+        $books = $user->reservedBooks;
         echo view('front.dashboard')->with('books', $books);
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|object
+     */
     public function adminDashboard(){
         $users =   User::all();
         return view('back.dashboard')->with('users', $users);

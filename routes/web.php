@@ -31,6 +31,9 @@ Route::get('/userDashboard', [dashboardController::class , 'userDashboard'])
 Route::get('/adminDashboard', [dashboardController::class , 'adminDashboard'])
     ->name('adminDashboard');
 
+Route::get('/emprunts', [reservationController::class , 'index'])
+    ->name('emprunts');
+
 Route::get('/adminDashboard/create', [bookController::class , 'createBook'])
     ->name('createbook');
 
@@ -49,5 +52,5 @@ Route::post('/updateData/{id}', [bookController::class , 'storeUpdate']);
 Route::get('/deleteUser/{id}', [UserController::class , 'deleteUser']);
 
 Route::post('/updateUser/{id}', [UserController::class , 'editUser']);
-
 Route::get('/reservation/{id}', [reservationController::class , 'store']);
+Route::get('/deleteReservation/{id}', [reservationController::class , 'delete']);

@@ -20,35 +20,39 @@ class authController extends Controller{
      * @return void
      */
     public function signup(){
-        echo view('auth.signup');
+        return view('auth.signup');
     }
 
     /**
      * @return void
      */
     public function signin(){
-        echo view('auth.signin');
+        return view('auth.signin');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'firsName' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'nullable|string|max:20',
-            'password' => 'required|min:6',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation stricte de l'image
+            'phone' => 'required|string|max:20',
+            'password' => 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
+            'image' => 'required|image',
         ]);
 
-        // Vérifier et stocker l'image
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('profile_images', 'public');
         } else {
             $imagePath = null;
         }
 
-        // Créer l'utilisateur
+
         User::create([
             'firsName' => $validatedData['firsName'], // Correction du champ
             'lastName' => $validatedData['lastName'],
@@ -63,7 +67,10 @@ class authController extends Controller{
     }
 
 
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function loginStore(Request $request){
         $credentials = $request->validate([
             'email' => 'required|email',
@@ -86,10 +93,12 @@ class authController extends Controller{
     }
 
 
-
+    /**
+     * @return \Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|object
+     */
     public function logout(){
-            Session::flush(); // Supprime toutes les sessions
-            auth()->logout(); // Déconnecte l'utilisateur si tu utilises Laravel Auth
+            Session::flush();
+            auth()->logout();
             return redirect('/signin');
     }
 
