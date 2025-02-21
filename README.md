@@ -61,9 +61,6 @@ Pour exécuter les tests unitaires :
 php artisan test
 ```
 
-## 📜 Licence
-Ce projet est sous licence MIT.
-
 ## 🤝 Contribuer
 Les contributions sont les bienvenues !
 1. Forker le projet
@@ -72,5 +69,3 @@ Les contributions sont les bienvenues !
 4. Pousser la branche (`git push origin feature/nouvelle-fonctionnalite`)
 5. Ouvrir une Pull Request
 
-## 📩 Contact
-Pour toute question, veuillez me contacter à **votre.email@example.com**.
