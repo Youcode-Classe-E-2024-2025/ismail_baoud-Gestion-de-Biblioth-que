@@ -41,7 +41,7 @@ class authController extends Controller{
             'lastName' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'phone' => 'required|string|max:20',
-            'password' => 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
+            'password' => 'required|min:6',
             'image' => 'required|image',
         ]);
 

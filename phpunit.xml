@@ -30,4 +30,7 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
     </php>
+<php>
+    <env name="NO_TTY" value="1"/>
+</php>
 </phpunit>

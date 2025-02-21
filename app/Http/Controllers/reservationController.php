@@ -45,7 +45,7 @@ class reservationController extends Controller
             return back()->withErrors($error);
         }
         try {
-            Rrservation::create([
+            Reservation::create([
                 'user_id' => $user_id,
                 'book_id' => $id
             ]);
