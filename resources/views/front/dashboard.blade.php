@@ -1,39 +1,40 @@
 @extends('base')
 
 @section('main')
+    @if( count($books) >=1 )
 
-<div class="font-sans p-4 mx-auto lg:max-w-7xl md:max-w-4xl max-w-xl">
-  <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-6 sm:mb-10">User Dashboard</h2>
-  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
 
-      @section('main')
+@foreach($books as $book)
+    <h1 class="flex justify-center text-3xl">Your Book </h1>
 
-          <div class="font-sans p-4 mx-auto lg:max-w-7xl md:max-w-4xl max-w-xl">
-              <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-6 sm:mb-10">User Dashboard</h2>
-              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+    <div class="flex justify-center items-center min-h-screen bg-gray-100">
+        <div class="w-full sm:w-96 bg-white shadow-lg border border-gray-300 p-6">
+            <div class="flex flex-col">
+                <!-- Book Image -->
+                <div class="w-full mb-4">
+                    <img class="w-full h-80 object-cover" src="{{ asset('storage/' . $book->image) }}" alt="book">
+                </div>
 
-                  @foreach($books as $book)
-                      <div class="bg-gray-100 p-2 overflow-hidden cursor-pointer">
-                          <div class="bg-white flex flex-col h-full">
-                              <div class="w-full">
-                                  <img class="w-full h-full" src="{{ asset('storage/' . $book->image)  }}" alt="book">
-                              </div>
+                <!-- Book Details -->
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">{{ $book->title }}</h2>
+                    <h4 class="text-sm font-medium text-gray-600 mb-2">{{ $book->description }}</h4>
+                    <h4 class="text-sm text-gray-500 mb-2">By: <span class="text-gray-800 font-semibold">{{ $book->author }}</span></h4>
+                    <h4 class="text-xl font-semibold text-gray-800">$ {{ $book->price }}</h4>
+                </div>
 
-                              <div class="p-4 text-center flex-1">
-                                  <h2 class="text-sm sm:text-base font-bold text-gray-800">title >>{{ $book->title }}</h2>
-                                  <h4 class="text-sm sm:text-base font-bold text-gray-800">desc >>{{ $book->description }}</h4>
-                                  <h4 class="text-sm sm:text-base font-bold text-gray-800 opacity-50"> By >>{{ $book->author }}</h4>
-                                  <h4 class="text-sm sm:text-base font-bold text-gray-800"> ${{ $book->price }}</h4>
+                <!-- Button -->
+                <div class="mt-6">
+                    <a href="/deleteReservation/{{ $book->id }}" class="block text-center bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 border border-red-800">🚫 Unreserve</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+    @else
+        <div class="flex justify-center items-center min-h-screen bg-gray-100">
+        <p class="flex justify-center text-5xl">you don't have any books</p>
+        </div>
+    @endif
 
-                              </div>
-                              <a href="/deleteReservation/{{ $book->id }}" type="button" class="bg-gray-700 text-center font-semibold hover:bg-gray-800 text-white text-sm px-2 py-2 w-full">Inreserved</a>
-                          </div>
-                      </div>
-                  @endforeach
-              </div>
-          </div>
-      @endsection
-
-  </div>
-</div>
 @endsection

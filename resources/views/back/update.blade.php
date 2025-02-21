@@ -18,18 +18,27 @@
                     <div class="mt-2.5">
                         <input type="text" name="title" id="title" autocomplete="given-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm shadow-blue-500 ring-1 ring-inset ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6" value="{{$book->title}}">
                     </div>
+                    @error('title')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div>
                     <label for="Price" class="block text-sm font-semibold leading-6 text-black">Price</label>
                     <div class="mt-2.5">
                         <input type="text" name="price" id="Price" autocomplete="family-name" value="{{$book->price}}" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset shadow-blue-500 ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6">
                     </div>
+                    @error('price')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="sm:col-span-2">
                     <label for="company" class="block text-sm font-semibold leading-6 text-black">Author</label>
                     <div class="mt-2.5">
                         <input type="text" name="author" id="Author" autocomplete="organization" value="{{$book->author}}" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset shadow-blue-500 ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6">
                     </div>
+                    @error('author')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
                 {{--                <div class="sm:col-span-2">--}}
                 {{--                    <label for="email" class="block text-sm font-semibold leading-6 text-red-600">Email</label>--}}
@@ -62,6 +71,9 @@
                     <div class="mt-2.5">
                         <textarea name="description" id="Description" rows="4"  class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{$book->description}}</textarea>
                     </div>
+                    @error('Description')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="flex gap-x-4 sm:col-span-2">
 
@@ -72,7 +84,7 @@
                 </div>
             </div>
             <div class="mt-10">
-                <button type="submit" class="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Let's talk</button>
+                <button type="submit" class="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Let's Create It</button>
             </div>
         </form>
     </div>

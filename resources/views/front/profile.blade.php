@@ -27,25 +27,38 @@
                 <input type="text" name="firsName" value="{{ $user->firsName }}"
                        class="w-80 px-4 py-2 border border-gray-300 rounded-lg text-center text-gray-700 text-lg font-medium bg-gray-100"
                        >
+                    @error('firsName')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                     <input type="text" name="lastName" value="{{ $user->lastName }}"
                            class="w-80 px-4 py-2 border border-gray-300 rounded-lg text-center text-gray-700 text-lg font-medium bg-gray-100"
                     >
+                    @error('lastName')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
 
 
 
                     <input type="text" name="email" value="{{ $user->email }}"
                            class="w-80 px-4 py-2 border border-gray-300 rounded-lg text-center text-gray-800 text-lg font-medium bg-gray-100"
                            >
+                    @error('email')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
 
                     <input type="text" name="phone" value="{{ $user->phone }}"
                            class="w-80 px-4 py-2 border border-gray-300 rounded-lg text-center text-gray-700 text-lg font-medium bg-gray-100"
                            >
+                    @error('phone')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
 
 
 
                     <input type="text" value="{{ $user->created_at }}"
                            class="w-80  px-4 py-2 border border-gray-300 rounded-lg text-center text-gray-500 text-lg font-light bg-gray-100"
                            disabled>
+
 
                     <button type="submit" class="w-[17%] rounded-3xl py-5 bg-black h-full text-white">update</button>
                 </div>

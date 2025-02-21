@@ -2,7 +2,7 @@
 
 @section('main')
 
-<div class="font-sans overflow-x-auto">
+<div class="font-sans h-screen overflow-x-auto">
   <table class="min-w-full bg-white">
     <thead class="bg-gray-100 whitespace-nowrap">
       <tr>
@@ -27,6 +27,7 @@
       </tr>
     </thead>
     <tbody class="whitespace-nowrap">
+    @if(count($users)>0)
     @foreach($users as $user)
 
         <tr class="hover:bg-gray-50">
@@ -63,6 +64,11 @@
 
 
       @endforeach
+                    @else
+                        <div class="flex justify-center items-center min-h-screen bg-gray-100">
+                            <p class="flex justify-center text-5xl">you don't have any users yet</p>
+                        </div>
+        @endif
     </tbody>
   </table>
 </div>
