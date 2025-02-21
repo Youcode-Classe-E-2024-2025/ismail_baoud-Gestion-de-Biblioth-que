@@ -27,7 +27,8 @@ class User extends Authenticatable
         'password',
         'phone',
         'role',
-        'image'
+        'image',
+        'status'
     ];
 
     /**
@@ -56,11 +57,6 @@ class User extends Authenticatable
     /**
      * @return HasMany
      */
-    public function reservations(): HasMany
-    {
-        return $this->hasMany(Reservation::class);
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
